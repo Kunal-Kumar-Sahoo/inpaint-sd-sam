@@ -1,61 +1,68 @@
-# Image Inpainting with Gradio and Stable Diffusion
+# Dockerized Image Inpainting Web App
 
-This repository contains code for an interactive image inpainting application built using Gradio, Stable Diffusion and Segment Anything Model. With this application, you can inpaint missing regions in an image using the Stable Diffusion inpainting model and provide a text prompt for guiding the inpainting process.
+This repository contains code for an interactive image inpainting web application using Gradio, Stable Diffusion, and Docker.
 
-### Prerequisites
+## Prerequisites
 
-Before running the code, make sure you have the following dependencies installed:
+Before running the Dockerized web app, make sure you have the following dependencies installed:
 
-- Python (>= 3.6)
-- PyTorch
-- Gradio
-- NumPy
-- PIL (Python Imaging Library)
-- diffusers (for Stable Diffusion)
-- segment_anything (for the segmentation model)
+- Docker: [Install Docker](https://docs.docker.com/get-docker/)
+- Git: [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-You can install these dependencies using `pip`:
-
-```bash
-pip install gradio torch numpy pillow diffusers segment_anything accelerate
-```
-
-Install weights for SAM from [here](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth).
-
-### Usage
+## Usage
 
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/Kunal-Kumar-Sahoo/image-inpainting.git
+   git clone https://github.com/yourusername/image-inpainting.git
    cd image-inpainting
    ```
 
-2. Download the Stable Diffusion inpainting model checkpoint and save it as `weights/sam_vit_h_4b8939.pth` in the project directory.
+2. Build the Docker image:
 
-3. Run the application:
+   Run the following command to build the Docker image:
 
    ```bash
-   python app.py
+   docker build -t image-inpainting .
    ```
 
-4. Open a web browser and visit `http://localhost:7860` to access the inpainting interface.
+3. Download the weights:
 
-### How it Works
+   The Dockerfile will automatically download the required model weights during the image build process. The weights will be saved in the `weights` directory inside the container.
 
-The code in `app.py` sets up an interactive Gradio interface for inpainting images:
+4. Run the Docker container:
 
-- You can upload an image as the input.
-- Draw masks on the input image by selecting regions to inpaint.
-- Provide a text prompt that guides the inpainting process.
+   Start the Docker container using the following command:
+
+   ```bash
+   docker run -p 7860:7860 image-inpainting
+   ```
+
+   This command maps port 7860 inside the container to port 7860 on your host machine.
+
+5. Access the web app:
+
+   Open a web browser and visit `http://localhost:7860` to access the inpainting interface.
+
+## How it Works
+
+The web app allows you to:
+
+- Upload an image as input.
+- Draw masks on the input image to specify regions to inpaint.
+- Provide a text prompt to guide the inpainting process.
 - Click the "Submit" button to start the inpainting process.
-- The inpainted output will be displayed in real-time.
+- View the inpainted output in real-time.
 
-### Customization
+## Customization
 
-You can customize the inpainting model and other settings by modifying the code in `app.py`. For example, you can change the inpainting model architecture, prompt, or image resizing options.
+You can customize the inpainting model and other settings by modifying the code in `app.py`. For example, you can change the model architecture, prompt, or image resizing options.
 
-### Author
+## Author
 
 - Kunal Kumar Sahoo
 - Email: kunal.sahoo2003@gmail.com
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
